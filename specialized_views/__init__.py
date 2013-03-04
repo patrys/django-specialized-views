@@ -45,8 +45,8 @@ def view(fun):
             kwargs = dict(kwargs, media_params=params)
             return spec(request, response, **kwargs)
         if request.is_ajax() and wrapped.ajax_handler:
-            return wrapped.ajax_handler(request, response, **kwargs)
-        return wrapped.default_handler(request, response)
+            response = wrapped.ajax_handler(request, response, **kwargs)
+        return wrapped.default_handler(request, response, **kwargs)
 
     def default(fun):
         wrapped.default_handler = fun
